@@ -186,7 +186,6 @@ struct PyUnit {
 PYBIND11_MODULE(pycollider, m) {
     m.doc() = "Load SuperCollider Plugins."; // optional module docstring
 
-    // bindings to Pet class
     py::class_<PyUnit>(m, "Unit")
 	.def(py::init<int, py::list, py::list, py::list, py::list, int>())
 	.def("calc", &PyUnit::calc);
