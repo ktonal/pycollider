@@ -12,6 +12,9 @@ synthesis algorithms as numpy/scipy provide a well established
 framework for prototyping DSP techniques and tools to plot and analyze
 results.  As such the package can be used complementary to
 SuperCollider as a development and debugging tool for new plugins.
+Because PyCollider loads the plugin binaries, you can be sure that
+you are executing the exact same code as when you run the plugins in
+SuperCollider.
 
 Teaching the fundamentals of computer-music to composers can be
 complicated by the amount of different specialized (and often ancient)
