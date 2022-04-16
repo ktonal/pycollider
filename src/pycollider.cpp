@@ -181,7 +181,7 @@ struct PyUnit {
 
 
 
-PYBIND11_MODULE(pycollider, m) {
+PYBIND11_MODULE(loader, m) {
     m.doc() = "Load SuperCollider Plugins."; // optional module docstring
 
     py::class_<PyUnit>(m, "Unit")
