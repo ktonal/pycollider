@@ -3,11 +3,11 @@
 #include <dlfcn.h>
 #include <map>
 #include <string>
-#include "include/plugin_interface/SC_PlugIn.h"
-#include "src/SC_UnitSpec.h"
-#include "include/plugin_interface/SC_WorldOptions.h"
-#include "include/plugin_interface/SC_Unit.h"
-#include "src/SC_UnitDef.h"
+#include "SC_PlugIn.h"
+#include "SC_UnitSpec.h"
+#include "SC_WorldOptions.h"
+#include "SC_Unit.h"
+#include "SC_UnitDef.h"
 
 #include <pybind11/pybind11.h>
 #include <pybind11/numpy.h>
@@ -170,7 +170,7 @@ struct PyUnit {
 	unit = make_unit(ugen_id, inputs, outputs, input_rates, output_rates, special_index);
     }
 
-    ~PyUnit() { std::cout << "Dtor" << this << "\n"; }
+    ~PyUnit() { std::cout << "Dtor<" << this << ">\n"; }
 
     void calc(int inNumSamples)
     {
