@@ -30,11 +30,9 @@ WorldOptions world_options;
 World *world;
 
 
-
 void
 register_buffer(int bufnum, py::array_t<float> array)
 {
-    //world->mNumSndBufs
     SndBuf *buf = world->mSndBufs + bufnum;
     auto buf_info = array.request();
     auto buf_data = static_cast<float*>(buf_info.ptr);
@@ -45,8 +43,8 @@ register_buffer(int bufnum, py::array_t<float> array)
     buf->frames = buf_info.shape[1];
     //auto mask = NEXTPOWEROFTWO(buf->samples);  // round up to next power of two
     buf->mask = buf->samples - 1;
+    std::cout << "num bufs: " << world->mNumSndBufs << " " << buf->channels << " " << buf->samples << "\n";
 }
-
 
 
 void pycollider_init()

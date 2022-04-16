@@ -27,7 +27,7 @@
 #include "SC_World.h"
 #include "SC_Wire.h"
 #include "Unroll.h"
-//#include "SC_Prototypes.h"
+#include "SC_Prototypes.h"
 
 void Unit_ChooseMulAddFunc(Unit* unit);
 

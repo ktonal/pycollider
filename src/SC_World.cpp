@@ -208,7 +208,7 @@ void InterfaceTable_Init() {
 
     ft->fDefineUnit = &UnitDef_Create;
     ft->fDefineBufGen = &BufGen_Create;
-    //ft->fClearUnitOutputs = &Unit_ZeroOutputs;
+    ft->fClearUnitOutputs = &Unit_ZeroOutputs;
 
     ft->fNRTAlloc = &malloc;
     ft->fNRTRealloc = &realloc;

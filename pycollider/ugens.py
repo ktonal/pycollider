@@ -146,6 +146,8 @@ class BufferFeeder:
         buffer_length = pycollider.get_buffer_length()
         self.buffer_length = buffer_length
         self.output_buffer = np.zeros(buffer_length, dtype=np.float32)
+        if array.dtype != np.float32:
+            array = array.astype(np.float32)
         self.array = array
         self.idx = 0
         
@@ -166,7 +168,8 @@ class ScalarFeeder:
     @property
     def inputs(self):
         return []
-    
+
+
 class UGen(pycollider.Unit, UGenOps):
 
     @classmethod
@@ -203,9 +206,9 @@ class UGen(pycollider.Unit, UGenOps):
         self.ugen_id = pycollider.find_ugen(type(self).__name__)
         self.buffer_length = pycollider.get_buffer_length()
         self.special_index = 0
+        self.init(num_outputs, inputs)
         self.handle_outputs(num_outputs)
         self.handle_inputs(inputs)
-        self.init(num_outputs, inputs)
         pycollider.Unit.__init__(self, self.ugen_id, self.input_buffers, self.output_buffers, self.input_rates,
                                  self.output_rates, self.special_index)
         return self
@@ -252,9 +255,9 @@ class BasicOpUGen(UGen):
         self.ugen_id = pycollider.find_ugen(type(self).__name__)
         self.buffer_length = pycollider.get_buffer_length()
         self.special_index = self.operatorIndices[operator]
+        self.init(num_outputs, inputs)
         self.handle_outputs(num_outputs)
         self.handle_inputs(inputs)
-        self.init(num_outputs, inputs)
         pycollider.Unit.__init__(self, self.ugen_id, self.input_buffers, self.output_buffers, self.input_rates,
                                  self.output_rates, self.special_index)
         return self
@@ -639,6 +642,19 @@ class PlayBuf(UGen):
     def __new__ (cls, numChannels, bufnum=0, rate=1.0, trigger=1.0, startPos=0.0, loop = 0.0, doneAction=0):
         return cls.multi_new('audio', numChannels, bufnum, rate, trigger, startPos, loop, doneAction)
 
-    def init(self, argNumChannels, *inputs):
+    @classmethod
+    def ar(cls, numChannels, bufnum=0, rate=1.0, trigger=1.0, startPos=0.0, loop = 0.0, doneAction=0):
+        return cls.multi_new('audio', numChannels, bufnum, rate, trigger, startPos, loop, doneAction)
+
+    @classmethod
+    def kr(cls, numChannels, bufnum=0, rate=1.0, trigger=1.0, startPos=0.0, loop = 0.0, doneAction=0):
+        return cls.multi_new('control', numChannels, bufnum, rate, trigger, startPos, loop, doneAction)
+
+    def init(self, argNumChannels, inputs):
+        if isinstance(inputs[0], np.ndarray):
+            bufnum = pycollider.register_buffer(-1, inputs[0])
+            inputs[0] = bufnum
+        print("playbuf init", inputs)
         self.num_outputs = argNumChannels
+        self.inputs = inputs
 
