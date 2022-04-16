@@ -18,7 +18,7 @@ __version__ = "0.0.1"
 #   reproducible builds (https://github.com/pybind/python_example/pull/53)
 
 ext_modules = [
-    Pybind11Extension("pycollider",
+    Pybind11Extension("loader",
         sources = sorted(glob("src/*.cpp")),
         include_dirs=["src/", "include/plugin_interface", "include/common", "include/server"],
         # Example: passing in the version to the compiled code
@@ -28,7 +28,7 @@ ext_modules = [
 ]
 
 setup(
-    name="pycollider",
+    name="loader",
     version=__version__,
     author="Bjoern Erlach",
     author_email="berlach@ccrma.stanford.edu",
