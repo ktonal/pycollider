@@ -4,7 +4,7 @@ from glob import glob
 from pybind11 import get_cmake_dir
 # Available at setup time due to pyproject.toml
 from pybind11.setup_helpers import Pybind11Extension, build_ext
-from setuptools import setup
+from setuptools import setup, find_packages
 
 __version__ = "0.0.1"
 
@@ -18,7 +18,7 @@ __version__ = "0.0.1"
 #   reproducible builds (https://github.com/pybind/python_example/pull/53)
 
 ext_modules = [
-    Pybind11Extension("loader",
+    Pybind11Extension("pycollider._pycollider",
         sources = sorted(glob("src/*.cpp")),
         include_dirs=["src/", "include/plugin_interface", "include/common", "include/server"],
         # Example: passing in the version to the compiled code
@@ -27,11 +27,13 @@ ext_modules = [
         ),
 ]
 
+
 setup(
-    name="loader",
+    name="pycollider",
     version=__version__,
     author="Bjoern Erlach",
     author_email="berlach@ccrma.stanford.edu",
+    packages=find_packages(),
     #url="https://github.com/pybind/python_example",
     description="PyCollider is a library for loading SuperCollider plugins.",
     long_description="",
@@ -39,7 +41,6 @@ setup(
     extras_require={"test": "pytest"},
     # Currently, build_ext only provides an optional "highest supported C++
     # level" feature, but in the future it may provide more features.
-    cmdclass={"build_ext": build_ext},
     zip_safe=False,
     python_requires=">=3.6",
 )

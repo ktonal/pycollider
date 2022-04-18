@@ -41,8 +41,16 @@ The package can be installed with
 python setup.py install
 ```
 
+You need to have SuperCollider plugins installed and load them.
+To load a plugin (the binary) use the load_plugin function:
+
+pycollider.load_plugin("/path/to/plugins/SomePlugin.so")
+
+
 Examples
 ========
+
+You must make sure to load the plugin files before you create any UGen object.
 
 The following code generates 44100 samples of a 100 Hz sine-wave
 (returns a numpy array).
